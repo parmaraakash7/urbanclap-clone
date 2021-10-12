@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.net.*;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -83,10 +84,14 @@ public class Controller {
          java.sql.Connection congeom = null;
          try {
             Class.forName("org.postgresql.Driver");
+		 
+		 URI dbUri = new URI(System.getenv("DATABASE_URL"));
+
+		    String username = dbUri.getUserInfo().split(":")[0];
+		    String password = dbUri.getUserInfo().split(":")[1];
+		    String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
             
-            c = DriverManager
-               .getConnection("jdbc:postgresql://ec2-3-221-100-217.compute-1.amazonaws.com:5432/d80ku9fq370r75?ssl=true&sslmode=require",
-               "bjsllzebpikvzj", "8e7e2d1d29eca08a88e9eb32115666186f8367aa26b4d7541dbb62fe0d6f4830");
+            c = DriverManager.getConnection(dbUrl, username, password);
             ((org.postgresql.PGConnection)c).addDataType("geometry",Class.forName("org.postgis.PGgeometry"));
             c.setAutoCommit(false);
             System.out.println("Opened database successfully");
