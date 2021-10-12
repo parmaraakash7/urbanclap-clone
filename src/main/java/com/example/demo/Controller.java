@@ -85,8 +85,8 @@ public class Controller {
             Class.forName("org.postgresql.Driver");
             
             c = DriverManager
-               .getConnection("jdbc:postgresql://localhost:5432/nd",
-               "postgres", "aakash@123");
+               .getConnection("jdbc:postgresql://ec2-3-221-100-217.compute-1.amazonaws.com:5432/d80ku9fq370r75",
+               "bjsllzebpikvzj", "8e7e2d1d29eca08a88e9eb32115666186f8367aa26b4d7541dbb62fe0d6f4830");
             ((org.postgresql.PGConnection)c).addDataType("geometry",Class.forName("org.postgis.PGgeometry"));
             c.setAutoCommit(false);
             System.out.println("Opened database successfully");
