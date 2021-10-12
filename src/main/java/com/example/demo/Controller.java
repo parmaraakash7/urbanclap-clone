@@ -89,7 +89,7 @@ public class Controller {
 
 		    String username = dbUri.getUserInfo().split(":")[0];
 		    String password = dbUri.getUserInfo().split(":")[1];
-		    String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+		    String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "sslmode=verify-full";
             
             c = DriverManager.getConnection(dbUrl, username, password);
             ((org.postgresql.PGConnection)c).addDataType("geometry",Class.forName("org.postgis.PGgeometry"));
