@@ -139,9 +139,13 @@ public class Controller {
          try {
             Class.forName("org.postgresql.Driver");
             
-            c = DriverManager
-               .getConnection("jdbc:postgresql://localhost:5432/nd",
-               "postgres", "aakash@123");
+            URI dbUri = new URI(System.getenv("DATABASE_URL"));
+
+		    String username = dbUri.getUserInfo().split(":")[0];
+		    String password = dbUri.getUserInfo().split(":")[1];
+		    String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+            
+            c = DriverManager.getConnection(dbUrl, username, password);
             ((org.postgresql.PGConnection)c).addDataType("geometry",Class.forName("org.postgis.PGgeometry"));
             c.setAutoCommit(false);
             System.out.println("Opened database successfully");
