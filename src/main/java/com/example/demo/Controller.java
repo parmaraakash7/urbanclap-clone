@@ -54,6 +54,7 @@ public class Controller {
                String  name = rs.getString("name");
                //Geometry shape = (Geometry)rs.getObject("shape");
                //PGgeometry geom = (PGgeometry)rs.getObject("st_asgeojson");
+		//demoGraph
                String geo = rs.getString("st_asgeojson");
                
                
